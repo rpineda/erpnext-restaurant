@@ -452,7 +452,7 @@ RestaurantObject = class RestaurantObject {
                 callback: () => {
                     this.edit_form.hide();
                 },
-                title: __(`Update ${this.data.type}`),
+                title: __(`Update ${this.data.type} df`),
                 field_properties: {
                     type: { read_only: true },
                     room: { read_only: true, hidden: true },

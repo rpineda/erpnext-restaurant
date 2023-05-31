@@ -168,23 +168,23 @@ class OrderManage extends ObjectManage {
 							${this.items_wrapper.html()}
                             ${this.invoice_wrapper.html()}
                             <div class="col-md-12">
-							
+
 							</div>
 						</div>
 					</td>
 					<td class="container-order-items">
 						<div class="panel-order-items">
 							<ul class="products-list" id="${this.order_entry_container_name}">
-								
+
 							</ul>
 							${this.empty_carts.html()}
 							${this.not_selected_order.html()}
 						</div>
 						<table class="table no-border table-condensed panel-order-edit" id ="${this.editor_container_name}">
-						
+
 						</table>
 						<table class="table no-border order-manage-control-buttons pad-container" id="${this.pad_container_name}">
-						
+
 						</table>
 					</td>
 				</tr>
@@ -224,8 +224,8 @@ class OrderManage extends ObjectManage {
                 name: "Minus",
                 tag: 'button',
                 properties: {
-                    name: 'minus', 
-                    class: `btn btn-default edit-button ${default_class}` 
+                    name: 'minus',
+                    class: `btn btn-default edit-button ${default_class}`
                 },
                 content: '<span class="fa fa-minus">',
                 on: {
@@ -239,7 +239,7 @@ class OrderManage extends ObjectManage {
             {
                 name: "Qty",
                 tag: 'button', label: 'Qty',
-                properties: { 
+                properties: {
                     name: 'qty', type: 'text', input_type: "number",
                     class: default_class
                 },
@@ -252,7 +252,7 @@ class OrderManage extends ObjectManage {
             {
                 name: "Discount",
                 tag: 'button', label: 'Discount',
-                properties: { 
+                properties: {
                     name: 'discount', type: 'text', input_type: "number",
                     class: default_class,
                 },
@@ -265,7 +265,7 @@ class OrderManage extends ObjectManage {
             {
                 name: "Rate",
                 tag: 'button', label: 'Rate',
-                properties: { 
+                properties: {
                     name: 'rate', type: 'text', input_type: "number",
                     class: default_class
                 },
@@ -295,7 +295,7 @@ class OrderManage extends ObjectManage {
                 name: "Trash",
                 tag: 'button',
                 properties: {
-                    name: 'trash', 
+                    name: 'trash',
                     class: `btn btn-default edit-button ${default_class}`
                 },
                 content: '<span class="fa fa-trash">',
@@ -340,7 +340,7 @@ class OrderManage extends ObjectManage {
 
             base_html += this.objects[element.name].html();
         });
-        
+
         $(container).empty().append(base_html + "</tr></tbody>");
 
         this.#objects.Qty.int();
@@ -563,7 +563,7 @@ class OrderManage extends ObjectManage {
             if (typeof this.#components.new_order_button != "undefined"){
                 this.#components.new_order_button.enable().show();
             }
-                
+
             return;
         } else {
             if (RM.check_permissions("order", null, "create")) {
@@ -633,7 +633,7 @@ class OrderManage extends ObjectManage {
             });
             return;
         }
-        
+
         const pos_profile = RM.pos_profile
         const data = item.data;
         const item_is_enabled_to_edit = item.is_enabled_to_edit;
@@ -671,6 +671,7 @@ class OrderManage extends ObjectManage {
 
     add_order() {
         RM.working("Adding Order");
+        console.log(RM.client)
         frappeHelper.api.call({
             model: "Restaurant Object",
             name: this.table.data.name,
@@ -756,7 +757,7 @@ class OrderManage extends ObjectManage {
         orders.forEach(order => {
             this.append_order(order, current);
         });
-        
+
         if (this.#components.new_order_button){
             this.#components.new_order_button.remove();
         }
@@ -774,7 +775,7 @@ class OrderManage extends ObjectManage {
         }, !RM.restrictions.to_new_order ? DOUBLE_CLICK : null);
 
         this.#components.new_order_button = new_order_button;
-        
+
         if (this.#components.new_order_button) {
             $(this.order_container).prepend(new_order_button.html());
         }
@@ -840,7 +841,7 @@ class OrderManage extends ObjectManage {
 
     order_status_message() {
         const container = $("#" + this.identifier);
-        
+
         if (this.current_order == null) {
             container.removeClass("has-order");
             container.removeClass("has-items");

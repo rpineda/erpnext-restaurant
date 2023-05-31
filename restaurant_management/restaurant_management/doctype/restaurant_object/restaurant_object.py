@@ -50,7 +50,7 @@ class RestaurantObject(Document):
                     orders_count=self._room.orders_count,
                     current_user=self.current_user
                 ))
-                
+
     def validate_transaction(self, user=frappe.session.user):
         if self.current_user is None or self.current_user == "Administrator" or self.orders_count == 0:
             frappe.db.set_value("Restaurant Object", self.name, "current_user", user)
@@ -95,6 +95,9 @@ class RestaurantObject(Document):
             order.taxes_and_charges = taxes_and_charges
         else:
             frappe.throw(_("POS Profile is required to use Point-of-Sale"))
+
+        if order.customer is None:
+            order.customer = frappe.db.get_value('Customer', 'CF', 'name')
 
         order.selling_price_list = frappe.db.get_value('Price List', dict(enabled="1"))
         order.table = self.name
